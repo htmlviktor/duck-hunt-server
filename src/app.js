@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
         intervalId = setRandomInterval(() => {
             socket.emit('startGame', {coordinates: {
                     x: getRandomNumber(-90, -200),
-                    y: getRandomNumber(300, 1000)
+                    y: getRandomNumber(300, 700)
                 }});
         }, 8000, 17000)
     })
@@ -30,6 +30,12 @@ io.on("connection", (socket) => {
             intervalId.clear()
         }
     })
+
+    socket.on('disconnect', () => {
+        if (intervalId) {
+            intervalId.clear()
+        }
+    })
 })
 
-server.listen(3000);
+server.listen(8080);
